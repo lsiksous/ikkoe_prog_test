@@ -26,7 +26,7 @@ print(np.sum(A))
 #+end_src
 
 #+RESULTS:
-: 4498404
+: 4499790
 
 * Question 2:
 You are given a data frame containing N lines and n columns. Columns i and j are qualitative and 
@@ -34,8 +34,109 @@ should be binary encoded by spawning categories into new columns bearing the lab
 Write the procedure for this one-hot encoding.
 
 #+begin_src python :results output :session :exports both
+df = pd.read_csv("./cars.csv",sep=',',index_col=0)
+df = pd.get_dummies(df, columns=['brand', 'color'])
 
+df.info()
 #+end_src
+
+#+RESULTS:
+#+begin_example
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 2499 entries, 0 to 2498
+Data columns (total 87 columns):
+ #   Column                                         Non-Null Count  Dtype  
+---  ------                                         --------------  -----  
+ 0   price                                          2499 non-null   int64  
+ 1   model                                          2499 non-null   object 
+ 2   year                                           2499 non-null   int64  
+ 3   title_status                                   2499 non-null   object 
+ 4   mileage                                        2499 non-null   float64
+ 5   vin                                            2499 non-null   object 
+ 6   lot                                            2499 non-null   int64  
+ 7   state                                          2499 non-null   object 
+ 8   country                                        2499 non-null   object 
+ 9   condition                                      2499 non-null   object 
+ 10  brand_acura                                    2499 non-null   uint8  
+ 11  brand_audi                                     2499 non-null   uint8  
+ 12  brand_bmw                                      2499 non-null   uint8  
+ 13  brand_buick                                    2499 non-null   uint8  
+ 14  brand_cadillac                                 2499 non-null   uint8  
+ 15  brand_chevrolet                                2499 non-null   uint8  
+ 16  brand_chrysler                                 2499 non-null   uint8  
+ 17  brand_dodge                                    2499 non-null   uint8  
+ 18  brand_ford                                     2499 non-null   uint8  
+ 19  brand_gmc                                      2499 non-null   uint8  
+ 20  brand_harley-davidson                          2499 non-null   uint8  
+ 21  brand_heartland                                2499 non-null   uint8  
+ 22  brand_honda                                    2499 non-null   uint8  
+ 23  brand_hyundai                                  2499 non-null   uint8  
+ 24  brand_infiniti                                 2499 non-null   uint8  
+ 25  brand_jaguar                                   2499 non-null   uint8  
+ 26  brand_jeep                                     2499 non-null   uint8  
+ 27  brand_kia                                      2499 non-null   uint8  
+ 28  brand_land                                     2499 non-null   uint8  
+ 29  brand_lexus                                    2499 non-null   uint8  
+ 30  brand_lincoln                                  2499 non-null   uint8  
+ 31  brand_maserati                                 2499 non-null   uint8  
+ 32  brand_mazda                                    2499 non-null   uint8  
+ 33  brand_mercedes-benz                            2499 non-null   uint8  
+ 34  brand_nissan                                   2499 non-null   uint8  
+ 35  brand_peterbilt                                2499 non-null   uint8  
+ 36  brand_ram                                      2499 non-null   uint8  
+ 37  brand_toyota                                   2499 non-null   uint8  
+ 38  color_beige                                    2499 non-null   uint8  
+ 39  color_billet silver metallic clearcoat         2499 non-null   uint8  
+ 40  color_black                                    2499 non-null   uint8  
+ 41  color_black clearcoat                          2499 non-null   uint8  
+ 42  color_blue                                     2499 non-null   uint8  
+ 43  color_bright white clearcoat                   2499 non-null   uint8  
+ 44  color_brown                                    2499 non-null   uint8  
+ 45  color_burgundy                                 2499 non-null   uint8  
+ 46  color_cayenne red                              2499 non-null   uint8  
+ 47  color_charcoal                                 2499 non-null   uint8  
+ 48  color_color:                                   2499 non-null   uint8  
+ 49  color_competition orange                       2499 non-null   uint8  
+ 50  color_dark blue                                2499 non-null   uint8  
+ 51  color_glacier white                            2499 non-null   uint8  
+ 52  color_gold                                     2499 non-null   uint8  
+ 53  color_gray                                     2499 non-null   uint8  
+ 54  color_green                                    2499 non-null   uint8  
+ 55  color_guard                                    2499 non-null   uint8  
+ 56  color_ingot silver                             2499 non-null   uint8  
+ 57  color_ingot silver metallic                    2499 non-null   uint8  
+ 58  color_jazz blue pearlcoat                      2499 non-null   uint8  
+ 59  color_kona blue metallic                       2499 non-null   uint8  
+ 60  color_light blue                               2499 non-null   uint8  
+ 61  color_lightning blue                           2499 non-null   uint8  
+ 62  color_magnetic metallic                        2499 non-null   uint8  
+ 63  color_maroon                                   2499 non-null   uint8  
+ 64  color_morningsky blue                          2499 non-null   uint8  
+ 65  color_no_color                                 2499 non-null   uint8  
+ 66  color_off-white                                2499 non-null   uint8  
+ 67  color_orange                                   2499 non-null   uint8  
+ 68  color_oxford white                             2499 non-null   uint8  
+ 69  color_pearl white                              2499 non-null   uint8  
+ 70  color_phantom black                            2499 non-null   uint8  
+ 71  color_purple                                   2499 non-null   uint8  
+ 72  color_red                                      2499 non-null   uint8  
+ 73  color_royal crimson metallic tinted clearcoat  2499 non-null   uint8  
+ 74  color_ruby red                                 2499 non-null   uint8  
+ 75  color_ruby red metallic tinted clearcoat       2499 non-null   uint8  
+ 76  color_shadow black                             2499 non-null   uint8  
+ 77  color_silver                                   2499 non-null   uint8  
+ 78  color_super black                              2499 non-null   uint8  
+ 79  color_tan                                      2499 non-null   uint8  
+ 80  color_toreador red                             2499 non-null   uint8  
+ 81  color_triple yellow tri-coat                   2499 non-null   uint8  
+ 82  color_turquoise                                2499 non-null   uint8  
+ 83  color_tuxedo black metallic                    2499 non-null   uint8  
+ 84  color_white                                    2499 non-null   uint8  
+ 85  color_white platinum tri-coat metallic         2499 non-null   uint8  
+ 86  color_yellow                                   2499 non-null   uint8  
+dtypes: float64(1), int64(3), object(6), uint8(77)
+memory usage: 402.7+ KB
+#+end_example
 
 * Question 3:
 Find an algorithm for determining whether subsets of connected directed vertices (i.e. edges), will 
