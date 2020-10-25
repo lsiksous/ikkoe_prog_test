@@ -1,0 +1,46 @@
+#+title: Ikkoe programming test
+#+OPTIONS: toc:nil
+
+All tests have to be performed in Python 3. Use of Numpy & Pandas is allowed. You also may use 
+language & API documentation, but not require any help of anyone.
+You should at all times regularly push onto a Git repository your coding attempts.
+You have one hour to complete the three exercises, until Thursday October 27th 2020
+
+#+begin_src python :results output :session :exports both
+# import needed libraries
+import numpy as np 
+import pandas as pd 
+#+end_src 
+
+#+RESULTS:
+
+* Question 1:
+Sum all the elements in a square matrix of 1000x1000 dimension.
+
+#+begin_src python :results output :session :exports both
+# create a square matrix of 1000x1000 dimension with random elements
+A = np.random.randint(10, size=(1000,1000))
+
+# print the sum of all elements
+print(np.sum(A))
+#+end_src
+
+#+RESULTS:
+: 4498404
+
+* Question 2:
+You are given a data frame containing N lines and n columns. Columns i and j are qualitative and 
+should be binary encoded by spawning categories into new columns bearing the labels and 0 or 1. 
+Write the procedure for this one-hot encoding.
+
+#+begin_src python :results output :session :exports both
+
+#+end_src
+
+* Question 3:
+Find an algorithm for determining whether subsets of connected directed vertices (i.e. edges), will 
+spawn a circular graph.
+
+#+begin_src python :results output :session :exports both
+
+#+end_src
