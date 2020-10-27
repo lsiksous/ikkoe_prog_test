@@ -1,4 +1,4 @@
-% Created 2020-10-27 Tue 10:46
+% Created 2020-10-27 Tue 11:02
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -39,7 +39,7 @@ import pandas as pd
 \end{verbatim}
 
 \section{Question 1:}
-\label{sec:org684364b}
+\label{sec:org601306e}
 Sum all the elements in a square matrix of 1000x1000 dimension.
 
 \begin{verbatim}
@@ -51,11 +51,11 @@ print(np.sum(A))
 \end{verbatim}
 
 \begin{verbatim}
-4495661
+4498892
 \end{verbatim}
 
 \section{Question 2:}
-\label{sec:org6055751}
+\label{sec:org530f949}
 You are given a data frame containing N lines and n columns. Columns i and j are qualitative and 
 should be binary encoded by spawning categories into new columns bearing the labels and 0 or 1. 
 Write the procedure for this one-hot encoding.
@@ -165,7 +165,7 @@ memory usage: 402.7+ KB
 \end{verbatim}
 
 \section{Question 3:}
-\label{sec:orgce4c29d}
+\label{sec:orgf3fab1d}
 Find an algorithm for determining whether subsets of connected directed vertices (i.e. edges), will 
 spawn a circular graph.
 
@@ -230,7 +230,7 @@ class Graph():
 \end{verbatim}
 
 \begin{itemize}
-\item Now, let's instentiate and poupulate a new graph of 5 nodes. This graph
+\item Now, let's instantiate and populate a new graph of 5 nodes. This graph
 contains no cycles.
 \end{itemize}
 
@@ -261,7 +261,7 @@ g.adjacencyMatrix()
 
 \begin{itemize}
 \item Implementing a Depth-First Search (DFS) algorithm in class to discover all the paths reachable from
-each node and if one or more is cyclic. Method has \_cycles added to the class
+each node and if one or more is cyclic. Method has\textsubscript{cycles} added to the class
 Graph.
 The graph created earlier had no cycle. So first call should return False.
 \end{itemize}
@@ -270,10 +270,7 @@ The graph created earlier had no cycle. So first call should return False.
 print(g.has_cycles())
 \end{verbatim}
 
-\begin{verbatim}
 False
-\end{verbatim}
-
 
 \begin{itemize}
 \item Let's add a loop !
@@ -285,10 +282,7 @@ g.add_edge(3, 2)
 print(g.has_cycles())
 \end{verbatim}
 
-\begin{verbatim}
 True
-\end{verbatim}
-
 
 \begin{itemize}
 \item CQFD !

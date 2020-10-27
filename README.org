@@ -34,7 +34,7 @@ You are given a data frame containing N lines and n columns. Columns i and j are
 should be binary encoded by spawning categories into new columns bearing the labels and 0 or 1. 
 Write the procedure for this one-hot encoding.
 
-#+begin_src python :results output :session :exports both
+#+begin_src python :results output :session
 df = pd.read_csv("./cars.csv",sep=',',index_col=0)
 df = pd.get_dummies(df, columns=['brand', 'color'])
 
@@ -203,7 +203,7 @@ class Graph():
 
 #+RESULTS:
 
-- Now, let's instentiate and poupulate a new graph of 5 nodes. This graph
+- Now, let's instantiate and populate a new graph of 5 nodes. This graph
   contains no cycles.
 
 #+begin_src python :results value :session
@@ -230,26 +230,30 @@ g.adjacencyMatrix()
 : 7  3      6
 
 - Implementing a Depth-First Search (DFS) algorithm in class to discover all the paths reachable from
-  each node and if one or more is cyclic. Method has _cycles added to the class
+  each node and if one or more is cyclic. Method has_cycles added to the class
   Graph.
   The graph created earlier had no cycle. So first call should return False.
 
-#+begin_src python :results output :session
+#+begin_src python :results output drawer :session
 print(g.has_cycles())
 #+end_src
 
 #+RESULTS:
-: False
+:results:
+True
+:end:
 
 - Let's add a loop !
 
-#+begin_src python :results output :session
+#+begin_src python :results output drawer :session
 g.add_edge(3, 2)
 
 print(g.has_cycles())
 #+end_src
 
 #+RESULTS:
-: True
+:results:
+True
+:end:
 
 - CQFD !
