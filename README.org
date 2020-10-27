@@ -240,7 +240,7 @@ g.adjacency_matrix()
 : 6  2     -1
 : 7  3      6
 
-- Implementing a Depth-First Search (DFS) algorithm in class Gtaph to discover
+- Implementing a Depth-First Search (DFS) algorithm in class Graph to discover
   all the paths reachable from each node and if one or more is cyclic. Method
   has_cycles added to the class Graph.  The graph created earlier had no
   cycle. So first call should return False.
@@ -271,4 +271,7 @@ True
 
 * Enhancements
 - Unit Testing / migrate experiments to a class GraphTest
+- Move from a recusrsive algorithm to a stacked mehod for handling very big
+  graphs
+- Import method and display of graphviz files
 - Play with other graph algorithms

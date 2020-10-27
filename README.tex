@@ -1,4 +1,4 @@
-% Created 2020-10-27 Tue 17:39
+% Created 2020-10-27 Tue 18:01
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -39,7 +39,7 @@ import pandas as pd
 \end{verbatim}
 
 \section{Question 1:}
-\label{sec:org8a405fe}
+\label{sec:org223e3ff}
 Sum all the elements in a square matrix of 1000x1000 dimension.
 
 \begin{verbatim}
@@ -51,11 +51,11 @@ print(np.sum(A))
 \end{verbatim}
 
 \begin{verbatim}
-4501609
+4497983
 \end{verbatim}
 
 \section{Question 2:}
-\label{sec:org0d26560}
+\label{sec:orgb63b38c}
 You are given a data frame containing N lines and n columns. Columns i and j are qualitative and 
 should be binary encoded by spawning categories into new columns bearing the labels and 0 or 1. 
 Write the procedure for this one-hot encoding.
@@ -165,7 +165,7 @@ memory usage: 402.7+ KB
 \end{verbatim}
 
 \section{Question 3:}
-\label{sec:orgf8e40e2}
+\label{sec:orgba53b3a}
 Find an algorithm for determining whether subsets of connected directed vertices (i.e. edges), will 
 spawn a circular graph.
 
@@ -271,7 +271,7 @@ g.adjacency_matrix()
 
 
 \begin{itemize}
-\item Implementing a Depth-First Search (DFS) algorithm in class Gtaph to discover
+\item Implementing a Depth-First Search (DFS) algorithm in class Graph to discover
 all the paths reachable from each node and if one or more is cyclic. Method
 has\textsubscript{cycles} added to the class Graph.  The graph created earlier had no
 cycle. So first call should return False.
@@ -300,9 +300,12 @@ True
 \end{itemize}
 
 \section{Enhancements}
-\label{sec:orgbd4ba14}
+\label{sec:orge9497f4}
 \begin{itemize}
 \item Unit Testing / migrate experiments to a class GraphTest
+\item Move from a recusrsive algorithm to a stacked mehod for handling very big
+graphs
+\item Import method and display of graphviz files
 \item Play with other graph algorithms
 \end{itemize}
 \end{document}
