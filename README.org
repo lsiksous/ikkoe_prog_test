@@ -146,16 +146,17 @@ spawn a circular graph.
 - First, let's implement a Graph class as proposed in
   cite:parkBasicGraphAlgorithms Park, J., Basic Graph Algorithms, , (), 38 (). 
   
-#+begin_src python :results value raw :session
+#+begin_src python :results output :session
 class Graph():
     
     # Defining two arrays : E of size m and LE of size n
     def __init__(self, i):
         self.E = pd.DataFrame(columns=['to', 'nextID'])
         self.LE = [-1] * i
-        
-    # Inserting a new edge from u to v with ID k
-    def insert(self, u, v):
+        self.size = i
+
+    # Adding a new edge from u to v with ID k
+    def add_edge(self, u, v):
         k = len(self.E) + 1
         self.E.loc[k] = {'to': v ,'nextID': self.LE[u-1]}
         self.LE[u-1] = k
@@ -166,28 +167,54 @@ class Graph():
     def adjacencyList(self):
         return self.LE
 
-    def lastID(self, u):
-        return self.LE[u]
+    def lastEdgeID(self, u):
+        return self.LE[u-1]
 
-    def nextID(self, ID):
-        return self.E.nextID
+    def nextEdgeID(self, ID):
+        return self.E.loc[ID].nextID
+    
+    def nextHOP(self, ID):
+        return self.E.loc[ID].to
 
+    def neighbors(self, u):
+        neighbors = []
+        ID = self.LE[u-1]
+        while ID != -1:
+            neighbors.append(self.E.loc[ID].to)
+            ID = self.E.loc[ID].nextID
+        return neighbors
+
+    def has_cycles(self):
+        path = []
+        
+        def has_cycle(v):
+            path.append(v)
+            for n in self.neighbors(v):
+                if n in path or has_cycle(n):
+                    return True
+            path.remove(v)
+            return False
+        
+        for v in self.LE:
+            if has_cycle(v):
+                return True
+            return False
 #+end_src
 
 #+RESULTS:
 
-- Now, let's intentiate and poupulate a new graph of 5 nodes:
+- Now, let's instentiate and poupulate a new graph of 5 nodes. This graph
+  contains no cycles.
 
 #+begin_src python :results value :session
 g = Graph(5)
-g.insert(1, 2)
-g.insert(1, 3)
-g.insert(1, 5)
-g.insert(2, 3)
-g.insert(2, 5)
-g.insert(3, 2)
-g.insert(4, 2)
-g.insert(4, 3)
+g.add_edge(1, 2)
+g.add_edge(1, 3)
+g.add_edge(1, 5)
+g.add_edge(2, 3)
+g.add_edge(2, 5)
+g.add_edge(4, 2)
+g.add_edge(4, 3)
 
 g.adjacencyMatrix()
 #+end_src
@@ -200,19 +227,29 @@ g.adjacencyMatrix()
 : 4  3     -1
 : 5  5      4
 : 6  2     -1
-: 7  2     -1
-: 8  3      7
+: 7  3      6
 
-#+begin_src python :results value :session
-g.adjacencyList()
+- Implementing a Depth-First Search (DFS) algorithm in class to discover all the paths reachable from
+  each node and if one or more is cyclic. Method has _cycles added to the class
+  Graph.
+  The graph created earlier had no cycle. So first call should return False.
+
+#+begin_src python :results output :session
+print(g.has_cycles())
 #+end_src
 
 #+RESULTS:
-| 3 | 5 | 6 | 8 | -1 |
+: False
 
-- Implementing a Depth-Firt Search (DFS) algorithm to discover all the paths reachable from
-  each node and discover if one or more is cyclic.
+- Let's add a loop !
 
-  #+begin_src python :results value :session
+#+begin_src python :results output :session
+g.add_edge(3, 2)
 
-  #+end_src
+print(g.has_cycles())
+#+end_src
+
+#+RESULTS:
+: True
+
+- CQFD !
