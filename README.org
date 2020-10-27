@@ -148,45 +148,56 @@ spawn a circular graph.
   
 #+begin_src python :results output :session
 class Graph():
-    
-    # Defining two arrays : E of size m and LE of size n
+    """
+    A graph model designed to be efficient
+    """
+
+    # defining two arrays : E of size m and LE of size n
     def __init__(self, i):
         self.E = pd.DataFrame(columns=['to', 'nextID'])
         self.LE = [-1] * i
         self.size = i
 
-    # Adding a new edge from u to v with ID k
+    # adding a new edge from u to v with ID k
     def add_edge(self, u, v):
         k = len(self.E) + 1
-        self.E.loc[k] = {'to': v ,'nextID': self.LE[u-1]}
-        self.LE[u-1] = k
-        
+        self.E.loc[k] = {'to': v, 'nextID': self.LE[u - 1]}
+        self.LE[u - 1] = k
+
+    # returns adjacency matrix of graph
     def adjacencyMatrix(self):
         return self.E
-    
+
+    # returns a list of pointers to the adjacency matrix for
+    # every node of the graph
     def adjacencyList(self):
         return self.LE
 
-    def lastEdgeID(self, u):
-        return self.LE[u-1]
+    # returns pointer to the adjacency matrix for node u
+    def last_edge(self, u):
+        return self.LE[u - 1]
 
-    def nextEdgeID(self, ID):
-        return self.E.loc[ID].nextID
-    
-    def nextHOP(self, ID):
-        return self.E.loc[ID].to
+    # returns next edge after edge i
+    def next_edge(self, i):
+        return self.E.loc[i].nextID
 
+    # returns destination of edge i
+    def next_hop(self, i):
+        return self.E.loc[i].to
+
+    # returns a list of all adjacent nodes of node u
     def neighbors(self, u):
         neighbors = []
-        ID = self.LE[u-1]
-        while ID != -1:
-            neighbors.append(self.E.loc[ID].to)
-            ID = self.E.loc[ID].nextID
+        last_edge_id = self.last_edge(u)
+        while last_edge_id != -1:
+            neighbors.append(self.next_hop(last_edge_id))
+            last_edge_id = self.next_edge(last_edge_id)
         return neighbors
 
+    # returns true if a cycle is detected throughout the graph
     def has_cycles(self):
         path = []
-        
+
         def has_cycle(v):
             path.append(v)
             for n in self.neighbors(v):
@@ -194,7 +205,7 @@ class Graph():
                     return True
             path.remove(v)
             return False
-        
+
         for v in self.LE:
             if has_cycle(v):
                 return True
@@ -240,7 +251,7 @@ print(g.has_cycles())
 
 #+RESULTS:
 :results:
-True
+False
 :end:
 
 - Let's add a loop !
@@ -256,4 +267,8 @@ print(g.has_cycles())
 True
 :end:
 
-- CQFD !
+- CQFD
+
+* Enhancements
+- Unit Testing / migrate experiments to a class GraphTest
+- Play with other graph algorithms

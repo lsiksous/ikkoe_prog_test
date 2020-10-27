@@ -1,4 +1,4 @@
-% Created 2020-10-27 Tue 11:02
+% Created 2020-10-27 Tue 14:21
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -39,7 +39,7 @@ import pandas as pd
 \end{verbatim}
 
 \section{Question 1:}
-\label{sec:org601306e}
+\label{sec:orgdc6b209}
 Sum all the elements in a square matrix of 1000x1000 dimension.
 
 \begin{verbatim}
@@ -51,11 +51,11 @@ print(np.sum(A))
 \end{verbatim}
 
 \begin{verbatim}
-4498892
+4505341
 \end{verbatim}
 
 \section{Question 2:}
-\label{sec:org530f949}
+\label{sec:org72c89fa}
 You are given a data frame containing N lines and n columns. Columns i and j are qualitative and 
 should be binary encoded by spawning categories into new columns bearing the labels and 0 or 1. 
 Write the procedure for this one-hot encoding.
@@ -165,7 +165,7 @@ memory usage: 402.7+ KB
 \end{verbatim}
 
 \section{Question 3:}
-\label{sec:orgf3fab1d}
+\label{sec:orga31caa0}
 Find an algorithm for determining whether subsets of connected directed vertices (i.e. edges), will 
 spawn a circular graph.
 
@@ -176,45 +176,56 @@ cite:parkBasicGraphAlgorithms Park, J., Basic Graph Algorithms, , (), 38 ().
 
 \begin{verbatim}
 class Graph():
-    
-    # Defining two arrays : E of size m and LE of size n
+    """
+    A graph model designed to be efficient
+    """
+
+    # defining two arrays : E of size m and LE of size n
     def __init__(self, i):
         self.E = pd.DataFrame(columns=['to', 'nextID'])
         self.LE = [-1] * i
         self.size = i
 
-    # Adding a new edge from u to v with ID k
+    # adding a new edge from u to v with ID k
     def add_edge(self, u, v):
         k = len(self.E) + 1
-        self.E.loc[k] = {'to': v ,'nextID': self.LE[u-1]}
-        self.LE[u-1] = k
-        
+        self.E.loc[k] = {'to': v, 'nextID': self.LE[u - 1]}
+        self.LE[u - 1] = k
+
+    # returns adjacency matrix of graph
     def adjacencyMatrix(self):
         return self.E
-    
+
+    # returns a list of pointers to the adjacency matrix for
+    # every node of the graph
     def adjacencyList(self):
         return self.LE
 
-    def lastEdgeID(self, u):
-        return self.LE[u-1]
+    # returns pointer to the adjacency matrix for node u
+    def last_edge(self, u):
+        return self.LE[u - 1]
 
-    def nextEdgeID(self, ID):
-        return self.E.loc[ID].nextID
-    
-    def nextHOP(self, ID):
-        return self.E.loc[ID].to
+    # returns next edge after edge i
+    def next_edge(self, i):
+        return self.E.loc[i].nextID
 
+    # returns destination of edge i
+    def next_hop(self, i):
+        return self.E.loc[i].to
+
+    # returns a list of all adjacent nodes of node u
     def neighbors(self, u):
         neighbors = []
-        ID = self.LE[u-1]
-        while ID != -1:
-            neighbors.append(self.E.loc[ID].to)
-            ID = self.E.loc[ID].nextID
+        last_edge_id = self.last_edge(u)
+        while last_edge_id != -1:
+            neighbors.append(self.next_hop(last_edge_id))
+            last_edge_id = self.next_edge(last_edge_id)
         return neighbors
 
+    # returns true if a cycle is detected throughout the graph
     def has_cycles(self):
         path = []
-        
+
         def has_cycle(v):
             path.append(v)
             for n in self.neighbors(v):
@@ -222,7 +233,7 @@ class Graph():
                     return True
             path.remove(v)
             return False
-        
+
         for v in self.LE:
             if has_cycle(v):
                 return True
@@ -285,6 +296,13 @@ print(g.has_cycles())
 True
 
 \begin{itemize}
-\item CQFD !
+\item CQFD
+\end{itemize}
+
+\section{Enhancements}
+\label{sec:org98257a6}
+\begin{itemize}
+\item Unit Testing / migrate experiments to a class GraphTest
+\item Play with other graph algorithms
 \end{itemize}
 \end{document}
