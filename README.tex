@@ -1,4 +1,4 @@
-% Created 2020-10-27 Tue 14:21
+% Created 2020-10-27 Tue 17:39
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -39,7 +39,7 @@ import pandas as pd
 \end{verbatim}
 
 \section{Question 1:}
-\label{sec:orgdc6b209}
+\label{sec:org8a405fe}
 Sum all the elements in a square matrix of 1000x1000 dimension.
 
 \begin{verbatim}
@@ -51,11 +51,11 @@ print(np.sum(A))
 \end{verbatim}
 
 \begin{verbatim}
-4505341
+4501609
 \end{verbatim}
 
 \section{Question 2:}
-\label{sec:org72c89fa}
+\label{sec:org0d26560}
 You are given a data frame containing N lines and n columns. Columns i and j are qualitative and 
 should be binary encoded by spawning categories into new columns bearing the labels and 0 or 1. 
 Write the procedure for this one-hot encoding.
@@ -165,7 +165,7 @@ memory usage: 402.7+ KB
 \end{verbatim}
 
 \section{Question 3:}
-\label{sec:orga31caa0}
+\label{sec:orgf8e40e2}
 Find an algorithm for determining whether subsets of connected directed vertices (i.e. edges), will 
 spawn a circular graph.
 
@@ -193,12 +193,12 @@ class Graph():
         self.LE[u - 1] = k
 
     # returns adjacency matrix of graph
-    def adjacencyMatrix(self):
+    def adjacency_matrix(self):
         return self.E
 
     # returns a list of pointers to the adjacency matrix for
     # every node of the graph
-    def adjacencyList(self):
+    def adjacency_list(self):
         return self.LE
 
     # returns pointer to the adjacency matrix for node u
@@ -234,7 +234,7 @@ class Graph():
             path.remove(v)
             return False
 
-        for v in self.LE:
+        for v in self.adjacency_list():
             if has_cycle(v):
                 return True
             return False
@@ -255,7 +255,7 @@ g.add_edge(2, 5)
 g.add_edge(4, 2)
 g.add_edge(4, 3)
 
-g.adjacencyMatrix()
+g.adjacency_matrix()
 \end{verbatim}
 
 \begin{verbatim}
@@ -271,10 +271,10 @@ g.adjacencyMatrix()
 
 
 \begin{itemize}
-\item Implementing a Depth-First Search (DFS) algorithm in class to discover all the paths reachable from
-each node and if one or more is cyclic. Method has\textsubscript{cycles} added to the class
-Graph.
-The graph created earlier had no cycle. So first call should return False.
+\item Implementing a Depth-First Search (DFS) algorithm in class Gtaph to discover
+all the paths reachable from each node and if one or more is cyclic. Method
+has\textsubscript{cycles} added to the class Graph.  The graph created earlier had no
+cycle. So first call should return False.
 \end{itemize}
 
 \begin{verbatim}
@@ -300,7 +300,7 @@ True
 \end{itemize}
 
 \section{Enhancements}
-\label{sec:org98257a6}
+\label{sec:orgbd4ba14}
 \begin{itemize}
 \item Unit Testing / migrate experiments to a class GraphTest
 \item Play with other graph algorithms

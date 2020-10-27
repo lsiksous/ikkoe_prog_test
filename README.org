@@ -165,12 +165,12 @@ class Graph():
         self.LE[u - 1] = k
 
     # returns adjacency matrix of graph
-    def adjacencyMatrix(self):
+    def adjacency_matrix(self):
         return self.E
 
     # returns a list of pointers to the adjacency matrix for
     # every node of the graph
-    def adjacencyList(self):
+    def adjacency_list(self):
         return self.LE
 
     # returns pointer to the adjacency matrix for node u
@@ -206,7 +206,7 @@ class Graph():
             path.remove(v)
             return False
 
-        for v in self.LE:
+        for v in self.adjacency_list():
             if has_cycle(v):
                 return True
             return False
@@ -227,7 +227,7 @@ g.add_edge(2, 5)
 g.add_edge(4, 2)
 g.add_edge(4, 3)
 
-g.adjacencyMatrix()
+g.adjacency_matrix()
 #+end_src
 
 #+RESULTS:
@@ -240,10 +240,10 @@ g.adjacencyMatrix()
 : 6  2     -1
 : 7  3      6
 
-- Implementing a Depth-First Search (DFS) algorithm in class to discover all the paths reachable from
-  each node and if one or more is cyclic. Method has_cycles added to the class
-  Graph.
-  The graph created earlier had no cycle. So first call should return False.
+- Implementing a Depth-First Search (DFS) algorithm in class Gtaph to discover
+  all the paths reachable from each node and if one or more is cyclic. Method
+  has_cycles added to the class Graph.  The graph created earlier had no
+  cycle. So first call should return False.
 
 #+begin_src python :results output drawer :session
 print(g.has_cycles())
