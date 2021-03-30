@@ -1,4 +1,4 @@
-#+title: Ikkoe programming test
+#+title: ACME programming test
 #+OPTIONS: toc:nil
 
 #+PROPERTY: header-args  :session :exports both
